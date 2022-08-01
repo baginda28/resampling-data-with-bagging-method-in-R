@@ -1,0 +1,23 @@
+library(e1071)
+library(caret)
+library(rpart)
+library(ipred)
+library(dplyr)
+databag <- read.delim
+str(databag)
+summary(databag)
+databag$Kategori <- as.factor(databag$Kategori)
+
+#model bagging
+model <- bagging (
+	formula = Kategori~.,
+	data = databag,
+	nbagg = 100
+	coob = TRUE,
+	control = rpart.control(minsplit=2, cp =0)
+)
+model
+
+#prediksi data baru
+new_data <- data.frame(
+predict(model,new_data)
